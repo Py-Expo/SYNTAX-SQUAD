@@ -1,23 +1,6 @@
 <div align="center">
 <h2>Depth Anything: Unleashing the Power of Large-Scale Unlabeled Data</h2>
 
-[**Lihe Yang**](https://liheyoung.github.io/)<sup>1</sup> · [**Bingyi Kang**](https://scholar.google.com/citations?user=NmHgX-wAAAAJ)<sup>2+</sup> · [**Zilong Huang**](http://speedinghzl.github.io/)<sup>2</sup> · [**Xiaogang Xu**](https://xiaogang00.github.io/)<sup>3,4</sup> · [**Jiashi Feng**](https://sites.google.com/site/jshfeng/)<sup>2</sup> · [**Hengshuang Zhao**](https://hszhao.github.io/)<sup>1+</sup>
-
-<sup>1</sup>The University of Hong Kong · <sup>2</sup>TikTok · <sup>3</sup>Zhejiang Lab · <sup>4</sup>Zhejiang University
-
-<sup>+</sup>corresponding authors
-
-**CVPR 2024**
-
-<a href="https://arxiv.org/abs/2401.10891"><img src='https://img.shields.io/badge/arXiv-Depth Anything-red' alt='Paper PDF'></a>
-<a href='https://depth-anything.github.io'><img src='https://img.shields.io/badge/Project_Page-Depth Anything-green' alt='Project Page'></a>
-<a href='https://huggingface.co/spaces/LiheYoung/Depth-Anything'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue'></a>
-<a href='https://huggingface.co/papers/2401.10891'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Paper-yellow'></a>
-</div>
-
-This work presents Depth Anything, a highly practical solution for robust monocular depth estimation by training on a combination of 1.5M labeled images and **62M+ unlabeled images**.
-
-![teaser](assets/teaser.png)
 
 ## News
 
@@ -47,38 +30,7 @@ This work presents Depth Anything, a highly practical solution for robust monocu
 
     We re-train **a better depth-conditioned ControlNet** based on Depth Anything. It offers more precise synthesis than the previous MiDaS-based ControlNet. Please refer [here](./controlnet/) for details. You can also use our new ControlNet based on Depth Anything in [ControlNet WebUI](https://github.com/Mikubill/sd-webui-controlnet) or [ComfyUI's ControlNet](https://github.com/Fannovel16/comfyui_controlnet_aux).
 
-- **Downstream high-level scene understanding**
 
-    The Depth Anything encoder can be fine-tuned to downstream high-level perception tasks, *e.g.*, semantic segmentation, 86.2 mIoU on Cityscapes and 59.4 mIoU on ADE20K. Please refer [here](./semseg/) for details.
-
-
-## Performance
-
-Here we compare our Depth Anything with the previously best MiDaS v3.1 BEiT<sub>L-512</sub> model.
-
-Please note that the latest MiDaS is also trained on KITTI and NYUv2, while we do not.
-
-| Method | Params | KITTI || NYUv2 || Sintel || DDAD || ETH3D || DIODE ||
-|-|-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-| | | AbsRel | $\delta_1$ | AbsRel | $\delta_1$ | AbsRel | $\delta_1$ | AbsRel | $\delta_1$ | AbsRel | $\delta_1$ | AbsRel | $\delta_1$ |
-| MiDaS | 345.0M | 0.127 | 0.850 | 0.048 | *0.980* | 0.587 | 0.699 | 0.251 | 0.766 | 0.139 | 0.867 | 0.075 | 0.942 | 
-| **Ours-S** | 24.8M | 0.080 | 0.936 | 0.053 | 0.972 | 0.464 | 0.739 | 0.247 | 0.768 | 0.127 | **0.885** | 0.076 | 0.939 |
-| **Ours-B** | 97.5M | *0.080* | *0.939* | *0.046* | 0.979 | **0.432** | *0.756* | *0.232* | *0.786* | **0.126** | *0.884* | *0.069* | *0.946* |
-| **Ours-L** | 335.3M | **0.076** | **0.947** | **0.043** | **0.981** | *0.458* | **0.760** | **0.230** | **0.789** | *0.127* | 0.882 | **0.066** | **0.952** |
-
-We highlight the **best** and *second best* results in **bold** and *italic* respectively (**better results**: AbsRel $\downarrow$ , $\delta_1 \uparrow$).
-
-## Pre-trained models
-
-We provide three models of varying scales for robust relative depth estimation:
-
-| Model | Params | Inference Time on V100 (ms) | A100 | RTX4090 ([TensorRT](https://github.com/spacewalk01/depth-anything-tensorrt)) |
-|:-|-:|:-:|:-:|:-:|
-| Depth-Anything-Small | 24.8M | 12 | 8 | 3 |
-| Depth-Anything-Base | 97.5M | 13 | 9 | 6 |
-| Depth-Anything-Large | 335.3M | 20 | 13 | 12 |
-
-Note that the V100 and A100 inference time (*without TensorRT*) is computed by excluding the pre-processing and post-processing stages, whereas the last column RTX4090 (*with TensorRT*) is computed by including these two stages (please refer to [Depth-Anything-TensorRT](https://github.com/spacewalk01/depth-anything-tensorrt)).
 
 You can easily load our pre-trained models by:
 ```python
@@ -246,24 +198,4 @@ Here we list the extensions we have found:
 - LearnOpenCV research article on Depth Anything: https://learnopencv.com/depth-anything
      
 
-If you have your amazing projects supporting or improving (*e.g.*, speed) Depth Anything, please feel free to drop an issue. We will add them here.
 
-
-## Acknowledgement
-
-We would like to express our deepest gratitude to [AK(@_akhaliq)](https://twitter.com/_akhaliq) and the awesome HuggingFace team ([@niels](https://huggingface.co/nielsr), [@hysts](https://huggingface.co/hysts), and [@yuvraj](https://huggingface.co/ysharma)) for helping improve the online demo and build the HF models.
-
-Besides, we thank the [MagicEdit](https://magic-edit.github.io/) team for providing some video examples for video depth estimation, and [Tiancheng Shen](https://scholar.google.com/citations?user=iRY1YVoAAAAJ) for evaluating the depth maps with MagicEdit.
-
-## Citation
-
-If you find this project useful, please consider citing:
-
-```bibtex
-@inproceedings{depthanything,
-      title={Depth Anything: Unleashing the Power of Large-Scale Unlabeled Data}, 
-      author={Yang, Lihe and Kang, Bingyi and Huang, Zilong and Xu, Xiaogang and Feng, Jiashi and Zhao, Hengshuang},
-      booktitle={CVPR},
-      year={2024}
-}
-```
